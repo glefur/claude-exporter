@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claude Export</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 380px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0f0f0f;
+      color: #e8e3d9;
+      padding: 20px;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .header-icon {
+      width: 32px;
+      height: 32px;
+      flex-shrink: 0;
+    }
+
+    .header-text h1 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #e8e3d9;
+      letter-spacing: 0.01em;
+    }
+
+    .header-text p {
+      font-size: 11px;
+      color: #7a756e;
+      margin-top: 2px;
+    }
+
+    .btn-export {
+      width: 100%;
+      padding: 11px 16px;
+      border: none;
+      border-radius: 8px;
+      background: #c47a4a;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.15s ease, transform 0.1s ease;
+      letter-spacing: 0.01em;
+    }
+
+    .btn-export:hover:not(:disabled) {
+      background: #d4894f;
+    }
+
+    .btn-export:active:not(:disabled) {
+      transform: scale(0.98);
+    }
+
+    .btn-export:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-export svg {
+      flex-shrink: 0;
+    }
+
+    .status {
+      margin-top: 12px;
+      padding: 9px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      line-height: 1.4;
+      display: none;
+    }
+
+    .status.success {
+      display: block;
+      background: #1a2e1a;
+      color: #6ecf6e;
+      border: 1px solid #2d4a2d;
+    }
+
+    .status.error {
+      display: block;
+      background: #2e1a1a;
+      color: #e07070;
+      border: 1px solid #4a2d2d;
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .status.loading {
+      display: block;
+      background: #1a1f2e;
+      color: #7090e0;
+      border: 1px solid #2d354a;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid #1e1e1e;
+      margin: 16px 0;
+    }
+
+    .info {
+      font-size: 11px;
+      color: #4a4540;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <svg class="header-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="32" height="32" rx="8" fill="#c47a4a"/>
+      <path d="M16 7C11.03 7 7 11.03 7 16C7 20.97 11.03 25 16 25C20.97 25 25 20.97 25 16C25 11.03 20.97 7 16 7ZM20 17H17V20C17 20.55 16.55 21 16 21C15.45 21 15 20.55 15 20V17H12C11.45 17 11 16.55 11 16C11 15.45 11.45 15 12 15H15V12C15 11.45 15.45 11 16 11C16.55 11 17 11.45 17 12V15H20C20.55 15 21 15.45 21 16C21 16.55 20.55 17 20 17Z" fill="white"/>
+    </svg>
+    <div class="header-text">
+      <h1>Claude Export</h1>
+      <p>Exporter en Markdown</p>
+    </div>
+  </div>
+
+  <button class="btn-export" id="exportBtn">
+    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M7.5 1.5V10.5M7.5 10.5L4.5 7.5M7.5 10.5L10.5 7.5M2 12.5H13" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Télécharger .md
+  </button>
+
+  <div class="status" id="status"></div>
+
+  <hr class="divider" />
+
+  <p class="info">Fonctionne sur les pages de<br/>conversation claude.ai</p>
+
+  <script src="popup.js"></script>
+</body>
+</html>

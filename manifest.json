@@ -1,0 +1,37 @@
+{
+  "manifest_version": 2,
+  "name": "Claude Export",
+  "version": "1.0.0",
+  "description": "Exporte la conversation Claude.ai courante au format Markdown",
+  "homepage_url": "https://github.com/",
+  "icons": {
+    "48": "icons/icon48.svg",
+    "96": "icons/icon96.svg"
+  },
+  "permissions": [
+    "activeTab",
+    "downloads",
+    "tabs"
+  ],
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "48": "icons/icon48.svg",
+      "96": "icons/icon96.svg"
+    },
+    "default_title": "Exporter la conversation Claude"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://claude.ai/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "claude-export@extension",
+      "strict_min_version": "109.0"
+    }
+  }
+}
